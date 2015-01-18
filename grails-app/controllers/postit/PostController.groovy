@@ -8,6 +8,8 @@ import postit.domain.User
 
 class PostController {
 
+    def randomService
+
     /**
      * Render the posts management page to the user. All user posts
      * are show in this page.
@@ -176,9 +178,6 @@ class PostController {
         // bind the parameters retrieved to the post instance
         bindData(post, params)
 
-        // set the post and company relation
-        post.company = company
-
         // if the post is not anonymous since a user has logged in
         // we create the post and user relation
         if (!params.anonymous) {
@@ -193,7 +192,21 @@ class PostController {
 
             // set the post and user relation
             post.user = user
+        } else {
+            // redirect user to another page in order to retrieve the personal question
+            // answer
+            def randomNumber = randomService.nextLong()
+            def encodedRandomNumber = randomNumber.encodeAsMD5()
+            session["randomNumber"] = encodedRandomNumber
+            session["post"] = post
+            session["companyId"] = params.companyId
+
+            render (view: '/post/answerQuestion', model: [randomNumber: session["randomNumber"]])
+            return
         }
+
+        // set the post and company relation
+        post.company = company
 
         // validate the post instance
         if (!post.validate()) {
@@ -207,6 +220,164 @@ class PostController {
 
         flash.infoMessage = message (code: 'user.post.creation.success')
         redirect(controller: 'company', action: 'details', id: company.id)
+    }
+
+    /**
+     * Render the secret token and personal question view. If all is ok
+     * then the user is shown the secret token and his answer is retrieved
+     * to encrypt his token.
+     */
+    def createAnonymousPost() {
+        // user must provide an answer
+        if (!params.age) {
+            flash.errorMessage = message (code: 'user.message.age.required')
+            render (view: '/post/answerQuestion', model: [randomNumber: session["randomNumber"]])
+            return
+        }
+
+        // retrieve the company instance from the database
+        Company company = Company.get(session["companyId"])
+        if (!company) {
+            flash.errorMessage = message (code: "user.company.not.found")
+            redirect(controller: 'landing', action: 'index')
+            return
+        }
+
+        // retrieve post instance stored in session
+        Post post = (Post) session["post"]
+
+        // retrieve secret token from session, add the age answer provided and
+        // generate a new hash
+        String randomToken = session["randomNumber"]
+        String encryptedToken = (randomToken+params.age).encodeAsMD5()
+
+        // apply the hash to the post
+        post.token = encryptedToken
+
+        // the post is defined as anonymous
+        post.anonymous = Boolean.TRUE
+
+        // create the relation between the post and the company
+        post.company = company
+
+        // validate the post instance
+        if (!post.validate()) {
+            flash.errorMessage = message (code: "user.post.creation.failed")
+            render (view: '/post/answerQuestion', model: [randomNumber: session["randomNumber"]])
+            return
+        }
+
+        // create the post instance
+        post.save()
+
+        flash.infoMessage = message (code: 'user.post.creation.success')
+        redirect(controller: 'company', action: 'details', id: company.id)
+    }
+
+    def editAnonymousPost() {
+
+        Post post = Post.findById(params.id)
+        if (!post) {
+            flash.errorMessage = message (code: "user.post.not.found")
+            redirect(controller: 'company', action: 'companiesManagemenet')
+            return
+        }
+
+        render (view: '/post/editAnonymousPost', model: [post: post])
+
+    }
+
+    def updateAnonymousPost() {
+        Post post = Post.findById(params.id)
+        if (!post) {
+            flash.errorMessage = message (code: "user.post.not.found")
+            redirect(controller: 'landing', action: 'index')
+            return
+        }
+
+        // user must provide an answer
+        if (!params.age) {
+            flash.errorMessage = message (code: 'user.message.age.required')
+            render (view: '/post/editAnonymousPost', model: [post: post, age: params.age, secretToken: params.secretToken])
+            return
+        }
+
+        if (!params.secretToken) {
+            flash.errorMessage = message (code: 'user.message.secret.token.required')
+            render (view: '/post/editAnonymousPost', model: [post: post, age: params.age, secretToken: params.secretToken])
+            return
+        }
+
+        // retrieve secret token from session, add the age answer provided and
+        // generate a new hash
+        String secretToken = params.secretToken
+        String ageSelection = params.age
+
+        String encryptedToken = (secretToken+params.age).encodeAsMD5()
+
+        if (post?.token?.equals(encryptedToken)) {
+            bindData(post, params)
+
+            // validate the post instance
+            if (!post.validate()) {
+                flash.errorMessage = message (code: "user.post.creation.failed")
+                redirect(controller: 'company', action: 'details', id: post?.company?.id)
+                return
+            }
+
+            // create the post instance
+            post.save()
+
+            flash.infoMessage = message (code: 'user.post.updated.success')
+            redirect(controller: 'company', action: 'details', id: post?.company.id)
+        } else {
+            flash.errorMessage = message (code: 'user.message.you.are.not.the.owner')
+            render (view: '/post/editAnonymousPost', model: [post: post])
+        }
+    }
+
+    def deleteAnonymousPost() {
+        Post post = Post.findById(params.id)
+        if (!post) {
+            flash.errorMessage = message (code: "user.post.not.found")
+            redirect(controller: 'landing', action: 'index')
+            return
+        }
+
+        // user must provide an answer
+        if (!params.age) {
+            flash.errorMessage = message (code: 'user.message.age.required')
+            render (view: '/post/editAnonymousPost', model: [post: post, age: params.age, secretToken: params.secretToken])
+            return
+        }
+
+        if (!params.secretToken) {
+            flash.errorMessage = message (code: 'user.message.secret.token.required')
+            render (view: '/post/editAnonymousPost', model: [post: post, age: params.age, secretToken: params.secretToken])
+            return
+        }
+
+        // retrieve secret token from session, add the age answer provided and
+        // generate a new hash
+        String secretToken = params.secretToken
+        String ageSelection = params.age
+
+        String encryptedToken = (secretToken+params.age).encodeAsMD5()
+
+        // compare the token provided with the persisted one on the post
+        log.error post?.token
+        log.error encryptedToken
+
+        if (post?.token?.equals(encryptedToken)) {
+            // delete the post
+            post.delete()
+
+            flash.infoMessage = message (code: 'user.post.deleted')
+            redirect(controller: 'company', action: 'details', id: post?.company.id)
+        } else {
+            flash.errorMessage = message (code: 'user.message.you.are.not.the.owner')
+            render (view: '/post/editAnonymousPost', model: [post: post])
+        }
     }
 
     /**

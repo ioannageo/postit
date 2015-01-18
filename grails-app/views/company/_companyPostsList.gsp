@@ -16,6 +16,4 @@
 </g:if>
 <g:else>
     <g:render template="/company/postsList" model="[posts: posts, postsCount: postsCount]"/>
-
-
 </g:else>

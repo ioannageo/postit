@@ -2,11 +2,12 @@ package postit.domain
 
 import org.bson.types.ObjectId
 
-class Post {
+class Post implements Serializable {
 
     ObjectId id                                         // object id in database
 
     Boolean anonymous = Boolean.FALSE                   // defines if post is anonymous
+    String token                                        // the anonymous post token
 
     String comment                                      // the post's comment
 
@@ -19,6 +20,7 @@ class Post {
 
     static constraints = {
         anonymous nullable: false
+        token nullable: true
 
         comment nullable: false, maxSize: 4000
 

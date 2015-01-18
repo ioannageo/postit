@@ -357,6 +357,8 @@ class CompanyController {
                 projections {
                     rowCount()
                 }
+            } else {
+                order "lastUpdated", "desc"
             }
         }
     }

@@ -9,6 +9,12 @@
                 <h4>
                     ${post?.comment}
                 </h4>
+
+                <g:if test="${post?.anonymous}">
+                    <g:link controller="post" action="editAnonymousPost" id="${post?.id}" class="btn btn-default">
+                        <g:message code="button.label.update"/>
+                    </g:link>
+                </g:if>
             </div>
             <div class="col-sm-3">
                 <div class="col-sm-12 text-right">
