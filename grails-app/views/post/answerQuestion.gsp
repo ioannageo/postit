@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ioannageo
-  Date: 1/18/15
-  Time: 0:27
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -38,15 +31,15 @@
                     </h3>
                 </div>
 
-                <div class="row">
+                <div class="row post-row">
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label>
                                 <g:message code="user.message.personal.question"/>
                             </label>
                             <g:radioGroup
-                                    values="['answer.less.15', 'answer.15.25', 'answer.25.35', 'answer.35.45', 'answer.45.55', 'answer.55.65', 'answer.more.65']"
-                                    name="age" value="1" class="form-control">
+                                    values="['answer.less.18', 'answer.18.25', 'answer.25.35', 'answer.35.45', 'answer.45.55', 'answer.55.65', 'answer.more.65']"
+                                    name="age" value="1">
                                 <p>${it.radio} <g:message
                                         code="${it?.label?.trim()?.toLowerCase()?.replace(' ', '.')}"/></p>
                             </g:radioGroup>

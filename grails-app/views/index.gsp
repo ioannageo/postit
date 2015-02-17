@@ -64,6 +64,14 @@
                     <input type="text" class="form-control" name="address.area" placeholder="Enter area"
                            value="${params?.address?.area}">
                 </div>
+                
+                <div class="form-group">
+                    <label for="exampleInputEmail1">
+                        <g:message code="form.field.phone"/>
+                    </label>
+                    <input type="text" class="form-control" name="phone" placeholder="Enter phone"
+                           value="${params?.phone}">
+                </div>
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">

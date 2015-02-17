@@ -7,8 +7,9 @@ class Address {
     ObjectId id                             // object id in database
 
     String street1                          // street information
-
-    String area                             // area description
+	String street2
+    
+	String area                             // area description
     String country                          // country description
 
     String postalCode                       // area postal code
@@ -17,6 +18,7 @@ class Address {
 
     static constraints = {
         street1 nullable: false, maxSize: 100
+		street2 nullable: true
 
         area nullable: false, maxSize: 50
         country nullable: false

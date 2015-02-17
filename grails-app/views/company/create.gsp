@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ioannageo
-  Date: 1/10/15
-  Time: 3:38
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -56,6 +49,14 @@
                     </label>
                     <g:textArea name="description" class="form-control" rows="5" cols="20" placeholder="Enter company description"
                                 value="${company?.description}"/>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <g:message code="form.field.phone"/>
+                    </label>
+                    <input type="number" class="form-control" name="phone" placeholder="Enter phone"
+                           value="${company?.phone}">
                 </div>
 
                 <div class="form-group">

@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ioannageo
-  Date: 1/10/15
-  Time: 3:28
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -46,7 +39,13 @@
                     <g:message code="form.field.owner"/>
                 </th>
                 <th>
+                    <g:message code="form.field.phone"/>
+                </th>
+                <th>
                     <g:message code="form.field.address.street1"/>
+                </th>
+                <th>
+                    <g:message code="form.field.address.street2"/>
                 </th>
                 <th>
                     <g:message code="form.field.address.area"/>
@@ -73,6 +72,9 @@
                         </td>
                         <td style="vertical-align: middle">
                             ${company?.owner}
+                        </td>
+                        <td style="vertical-align: middle">
+                            ${company?.phone}
                         </td>
                         <td style="vertical-align: middle">
                             ${company?.address?.street1}

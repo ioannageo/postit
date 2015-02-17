@@ -7,7 +7,7 @@ class UrlMappings {
             }
         }
 
-        "/"(view:"/index")
+        "/"(view:"/index") //prwti fora sto URL
         "500"(view:'/error')
 	}
 }

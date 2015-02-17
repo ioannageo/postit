@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ioannageo
-  Date: 1/13/15
-  Time: 18:19
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>

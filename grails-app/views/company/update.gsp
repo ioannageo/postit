@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ioannageo
-  Date: 1/10/15
-  Time: 3:38
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -19,7 +12,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-offset-2 col-sm-8">
+        <div class="col-sm-offset-2 col-sm-10">
             <div class="page-header">
                 <h3>
                     <g:message code="page.header.create.company"/>
@@ -60,6 +53,14 @@
                     <input type="text" class="form-control" name="address.street1" placeholder="Enter street address"
                            value="${company?.address?.street1}">
                 </div>
+                
+                <div class="form-group">
+                    <label>
+                        <g:message code="form.field.address.street2"/>
+                    </label>
+                    <input type="text" class="form-control" name="address.street2" placeholder="Enter street address"
+                           value="${company?.address?.street2}">
+                </div>
 
                 <div class="form-group">
                     <label>
@@ -67,6 +68,14 @@
                     </label>
                     <input type="text" class="form-control" name="address.area" placeholder="Enter area"
                            value="${company?.address?.area}">
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <g:message code="form.field.phone"/>
+                    </label>
+                    <input type="text" class="form-control" name="phone" placeholder="Enter phone"
+                           value="${company?.phone}">
                 </div>
 
                 <div class="form-group">
