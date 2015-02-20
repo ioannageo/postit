@@ -3,57 +3,65 @@
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
 <!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"><!--<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title><g:layoutTitle default="PostIT"/></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
-    <link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">
-    <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
-    <asset:stylesheet src="application.css"/>
-    <asset:javascript src="application.js"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title><g:layoutTitle default="PostIT" /></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}"
+	type="image/x-icon">
+<link rel="apple-touch-icon"
+	href="${assetPath(src: 'apple-touch-icon.png')}">
+<link rel="apple-touch-icon" sizes="114x114"
+	href="${assetPath(src: 'apple-touch-icon-retina.png')}">
+<asset:stylesheet src="application.css" />
+<asset:javascript src="application.js" />
 
-    <g:javascript plugin="remote-pagination" library="remoteNonStopPageScroll"/>
+<g:javascript plugin="remote-pagination"
+	library="remoteNonStopPageScroll" />
 
-    <g:layoutHead/>
+<g:layoutHead />
 </head>
 
 <body>
 
-<div class="jumbotron custom-jumbotron">
-    <div class="container">
-    <h1>
-        <g:message code="application.name"/>
-    </h1>
+	<div class="jumbotron custom-jumbotron">
+		<div class="container">
+			<h1>
+				<g:message code="application.name" />
+			</h1>
 
-    <p>
-        <g:message code="application.logo"/>
-    </p>
-    </div>
-</div>
+			<p>
+				<g:message code="application.logo" />
+			</p>
+		</div>
+	</div>
 
-<g:render template="/menus/centralMenu"/>
+	<g:render template="/menus/centralMenu" />
 
-<div class="container">
-    <g:if test="${flash.infoMessage}">
-        <div class="alert alert-info alert-dismissible">
-            ${flash.infoMessage}
-        </div>
-    </g:if>
-    <g:if test="${flash.errorMessage}">
-        <div class="alert alert-danger alert-dismissable">
-            ${flash.errorMessage}
-        </div>
-    </g:if>
-</div>
+	<div class="container">
+		<g:if test="${flash.infoMessage}">
+			<div class="alert alert-info alert-dismissible">
+				${flash.infoMessage}
+			</div>
+		</g:if>
+		<g:if test="${flash.errorMessage}">
+			<div class="alert alert-danger alert-dismissable">
+				${flash.errorMessage}
+			</div>
+		</g:if>
+	</div>
 
-<div class="container">
-    <g:layoutBody/>
-</div>
+	<div class="container">
+		<g:layoutBody />
+	</div>
 
 
-<div id="spinner" class="spinner hidden"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
+	<div id="spinner" class="spinner hidden">
+		<g:message code="spinner.alt" default="Loading&hellip;" />
+	</div>
 </body>
 </html>

@@ -80,6 +80,9 @@
                             ${company?.address?.street1}
                         </td>
                         <td style="vertical-align: middle">
+                            ${company?.address?.street2}
+                        </td>
+                        <td style="vertical-align: middle">
                             ${company?.address?.area}
                         </td>
                         <td style="vertical-align: middle">

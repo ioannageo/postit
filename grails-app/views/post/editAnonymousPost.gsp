@@ -51,7 +51,7 @@
                         <g:message code="user.message.personal.question"/>
                     </label>
                     <g:radioGroup
-                            values="['answer.less.15', 'answer.15.25', 'answer.25.35', 'answer.35.45', 'answer.45.55', 'answer.55.65', 'answer.more.65']"
+                            values="['answer.less.18', 'answer.18.25', 'answer.25.35', 'answer.35.45', 'answer.45.55', 'answer.55.65', 'answer.more.65']"
                             name="age" value="1">
                         <p>${it.radio} <g:message code="${it?.label?.trim()?.toLowerCase()?.replace(' ', '.')}"/></p>
                     </g:radioGroup>

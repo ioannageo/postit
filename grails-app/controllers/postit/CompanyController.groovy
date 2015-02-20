@@ -74,10 +74,9 @@ class CompanyController {
 
 		// instantiate the address and company records
 		Company company
-
-		if (params.id) {
+		if(params.id){
 			company = Company.findById(params.id)
-		} else {
+		}else {
 			company = new Company()
 			company.address = new Address()
 			company.user = user
@@ -95,7 +94,7 @@ class CompanyController {
 			if (params.id) {
 				render (view: '/company/update', model: [company: company])
 			} else {
-				render(view: '/company/update', model: [company: company])
+				render(view: '/company/create', model: [company: company])
 			}
 			return
 		}
@@ -129,7 +128,7 @@ class CompanyController {
 		}
 		render(view: '/company/deleteCompany', model: [company: company])
 	}
-	
+
 	/**
 	 * Delete permanently a company record along with all its details after being asked.
 	 */
@@ -195,7 +194,6 @@ class CompanyController {
 	 * more companies are rendered accordingly.
 	 */
 	def companiesList() {
-		log.error params
 		// if no max parameter is set then set it by default to 20
 		if (!params.max) {
 			params.max = 20
@@ -302,6 +300,10 @@ class CompanyController {
 					like ('street1', '%' + params.address.street1 + '%')
 				}
 
+				if (params?.address?.street2) {
+					like ('street2', '%' + params.address.street2 + '%')
+				}
+
 				if (params?.address?.area) {
 					like ('area', '%' + params.address.area + '%')
 				}
@@ -341,6 +343,10 @@ class CompanyController {
 
 			if (params?.description) {
 				like ('description', '%' + params.description + '%')
+			}
+
+			if (params?.phone) {
+				like ('phone', '%' + params.phone + '%')
 			}
 
 			if (addresses || addressParameterDefined) {
